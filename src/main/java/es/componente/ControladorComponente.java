@@ -25,6 +25,8 @@ public class ControladorComponente extends VBox {
   @FXML
   private TextFlow textFlow;
 
+  private List<String> seleccionados = new ArrayList<String>();
+
   static ControladorComponente controlador;
 
   public ControladorComponente() throws IOException {
@@ -36,23 +38,22 @@ public class ControladorComponente extends VBox {
     ControladorComponente.controlador = this;
   }
 
-  public ControladorComponente getControlador () {
-    return controlador;
-  }
-
   public List<String> getElementosSeleccionados() {
-    List<String> seleccionados = new ArrayList<>();
+    seleccionados.clear();
     seleccionados.add("hola");
     seleccionados.add("me quedo");
     seleccionados.add("me voy");
     return seleccionados;
   }
 
-  public void setElementosSeleccionados(List<String> elementos) {
-
+  public List<String> setElementosSeleccionados(List<String> elementos) {
+    seleccionados.clear();
+    seleccionados.add("Buenas tardes");
+    seleccionados.add("Buenas noches");
+    return seleccionados;
   }
 
   public void reset() {
-
+    seleccionados.clear();
   }
 }

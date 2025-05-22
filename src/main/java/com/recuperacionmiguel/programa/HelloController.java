@@ -4,30 +4,29 @@ import es.componente.ControladorComponente;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 public class HelloController extends Application {
 
+  private List<String> seleccion = new ArrayList<>();
   @FXML
   private TextArea outputArea;
 
-  private ControladorComponente componenteController;
+  @FXML
+  private ControladorComponente componente1;
 
   @Override
   public void start(Stage stage) throws IOException {
-    FXMLLoader Componentloader = new FXMLLoader(getClass().getResource("es/componente/Componente.fxml"));
-    componenteController = Componentloader.getController();
-
-    FXMLLoader AppLoader = new FXMLLoader(HelloApplication.class.getResource("com/recuperacionmiguel/programa/hello-view.fxml"));
-    Scene scene = new Scene(AppLoader.load());
-
+    FXMLLoader AppLoader = new FXMLLoader(HelloController.class.getResource("hello-view.fxml"));
+    Parent root = AppLoader.load();
+    Scene scene = new Scene(root);
     stage.setTitle("Imagina que funciona y todo...");
     stage.setScene(scene);
     stage.show();
@@ -36,18 +35,19 @@ public class HelloController extends Application {
 
   @FXML
   public void handleGet() {
-    List<String> seleccionados = componenteController.getElementosSeleccionados();
-    outputArea.setText("Seleccionados:\n" + String.join(", ", seleccionados));
+    seleccion = componente1.getElementosSeleccionados();
+    outputArea.setText("Seleccionados:\n" + String.join(", ", seleccion));
   }
 
   @FXML
   public void handleSet() {
-    componenteController.setElementosSeleccionados(Arrays.asList("Rojo", "Verde", "Azul"));
+    seleccion = componente1.setElementosSeleccionados(seleccion);
+    outputArea.setText("Seleccionados:\n" + String.join(", ", seleccion));
   }
 
   @FXML
   public void handleReset() {
-    componenteController.reset();
+    componente1.reset();
     outputArea.clear();
   }
 
